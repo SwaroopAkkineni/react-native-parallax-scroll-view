@@ -9,7 +9,7 @@ const window = Dimensions.get('window')
 
 const SCROLLVIEW_REF = 'ScrollView'
 
-const pivotPoint = (a, b) => a - b
+const pivotPoint = (a, b) =>  b
 
 const renderEmpty = () => <View />
 
@@ -335,12 +335,11 @@ class ParallaxScrollView extends Component {
 						0,
 						viewHeight - height - stickyHeaderHeight
 					)
-					if (this._footerHeight !== footerHeight) {
-						this._footerComponent.setNativeProps({
-							style: { height: footerHeight }
-						})
-						this._footerHeight = footerHeight
-					}
+
+					this._footerHeight = Math.max(this._footerHeight, footerHeight);
+					this._footerComponent.setNativeProps({
+						style: { height: this._footerHeight }
+					})	
 				}}
 			>
 				{renderContentBackground()}
